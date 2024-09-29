@@ -294,7 +294,7 @@ class RegressionPostProcessor(object):
         else:
             est_pedal_on_offs = None    
 
-        return est_on_off_note_vels, est_pedal_on_offs
+        return est_on_off_note_vels, est_pedal_on_offs, output_dict
 
     def get_binarized_output_from_regression(self, reg_output, threshold, neighbour):
         """Calculate binarized output and shifts of onsets or offsets from the

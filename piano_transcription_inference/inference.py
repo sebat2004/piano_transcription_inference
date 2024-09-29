@@ -61,12 +61,11 @@ class PianoTranscription(object):
         else:
             print('Using CPU.')
 
-    def transcribe(self, audio, midi_path):
+    def getMidiEvents(self, audio):
         """Transcribe an audio recording.
 
         Args:
           audio: (audio_samples,)
-          midi_path: str, path to write out the transcribed MIDI.
 
         Returns:
           transcribed_dict, dict: {'output_dict':, ..., 'est_note_events': ...}
@@ -106,21 +105,7 @@ class PianoTranscription(object):
             pedal_offset_threshold=self.pedal_offset_threshold)
 
         # Post process output_dict to MIDI events
-        (est_note_events, est_pedal_events) = \
-            post_processor.output_dict_to_midi_events(output_dict)
-
-        # Write MIDI events to file
-        if midi_path:
-            write_events_to_midi(start_time=0, note_events=est_note_events, 
-                pedal_events=est_pedal_events, midi_path=midi_path)
-            print('Write out to {}'.format(midi_path))
-
-        transcribed_dict = {
-            'output_dict': output_dict, 
-            'est_note_events': est_note_events,
-            'est_pedal_events': est_pedal_events}
-
-        return transcribed_dict
+        return post_processor.output_dict_to_midi_events(output_dict)
 
     def enframe(self, x, segment_samples):
         """Enframe long sequence to short segments.
