@@ -217,7 +217,7 @@ class RegressionPostProcessor(object):
         else:
             est_pedal_events = self.detected_pedals_to_events(est_pedal_on_offs)
 
-        return est_note_events, est_pedal_events
+        return est_note_events, est_pedal_events, output_dict
 
     def output_dict_to_note_pedal_arrays(self, output_dict):
         """Postprocess the output probabilities of a transription model to MIDI 
@@ -294,7 +294,7 @@ class RegressionPostProcessor(object):
         else:
             est_pedal_on_offs = None    
 
-        return est_on_off_note_vels, est_pedal_on_offs, output_dict
+        return est_on_off_note_vels, est_pedal_on_offs
 
     def get_binarized_output_from_regression(self, reg_output, threshold, neighbour):
         """Calculate binarized output and shifts of onsets or offsets from the
